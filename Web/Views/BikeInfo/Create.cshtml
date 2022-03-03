@@ -69,9 +69,9 @@
                 var checkInDate = Date.parse($('#inputCheckIn').val());
                 var checkOutDate = Date.parse($('#inputCheckOut').val());
 
-                var result = checkOutDate - checkInDate;
+                var milisec = checkOutDate - checkInDate;
 
-                const hours = Math.round(((result / 1000) / 60) / 60);
+                const hours = Math.round(((milisec / 1000) / 60) / 60);
 
                 $('#inputTimeSpent').val(hours);
             };
