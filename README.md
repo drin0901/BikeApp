@@ -39,7 +39,21 @@ STAFF
 
 ### Steps to run the application
 
+- Restore Database using the .bak files attached on this zip file.
+- Modify SQL Server connection string in the appsettings.json for both Web and Web API Projects. 
+  It will be based on your local connection string. On my end, its "(LocalDb)\\MyLocalDB".
+  You can just replace it for the entire solution for your convenience.
 - Open the project using Visual Studio 2019
-- Make sure the startup project is set to Multiple Projects such as `CRUDWeb` and `RestApiCRUD`
+- Make sure the startup project is set to Multiple Projects such as `Web` and `WebAPI`
 - Run the project 
-- You can register and login using Authentication and Authorization approach
+- I've created 2 existing account on the database. You can login with the email and password below:
+
+- Email: mansion88@ymail.com
+  Password: M@nsion88
+  Role: Admin
+
+- Email: drin0901@yahoo.com
+  Password: @Aldrin22
+  Role: Staff
+
+- You can also create a new user using the Admin role account.
