@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RestApiCRUD.Models;
+using WebAPI.Models;
 
-namespace RestApiCRUD.Migrations
+namespace WebAPI.Migrations
 {
-    [DbContext(typeof(DBContext))]
-    partial class PersonalInfoContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BikeInfoContext))]
+    partial class BikeInfoContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -19,49 +19,38 @@ namespace RestApiCRUD.Migrations
                 .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("RestApiCRUD.Models.PersonalInfo", b =>
+            modelBuilder.Entity("WebAPI.Models.BikeInfo", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime?>("BirthDay")
+                    b.Property<DateTime?>("CheckInTime")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EmailAddress")
+                    b.Property<DateTime?>("CheckOutTime")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<long?>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("bigint");
+                    b.Property<int?>("TotalTimeSpent")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PersonalInfoList");
+                    b.ToTable("BikeInfoList");
                 });
 #pragma warning restore 612, 618
         }

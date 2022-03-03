@@ -1,29 +1,29 @@
-﻿using CRUDWeb.Models;
+﻿using Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace CRUDWeb.Controllers
+namespace Web.Controllers
 {
     [Authorize]
-    public class PersonalInfoController : Controller
+    public class BikeInfoController : Controller
     {
         
         private HttpResponseMessage response;
-        public PersonalInfoController()
+        public BikeInfoController()
         {
             response = new HttpResponseMessage();
         }
 
         public IActionResult Index()
         {
-            IEnumerable<PersonalInfo> personalInfoList;
-            response = GlobalVariables.WebApiClient.GetAsync("GetPersonalInfoList").Result;
-            personalInfoList = response.Content.ReadAsAsync<IEnumerable<PersonalInfo>>().Result;
+            IEnumerable<BikeInfo> BikeInfoList;
+            response = GlobalVariables.WebApiClient.GetAsync("GetBikeInfoList").Result;
+            BikeInfoList = response.Content.ReadAsAsync<IEnumerable<BikeInfo>>().Result;
 
-            return View(personalInfoList);
+            return View(BikeInfoList);
         }
 
         [HttpGet]
@@ -33,12 +33,12 @@ namespace CRUDWeb.Controllers
             {
                 if (id == 0)
                 {
-                    return View(new PersonalInfo());
+                    return View(new BikeInfo());
                 }
                 else
                 {
-                    response = GlobalVariables.WebApiClient.GetAsync("GetPersonalInfo?id=" + id).Result;
-                    return View(response.Content.ReadAsAsync<PersonalInfo>().Result);
+                    response = GlobalVariables.WebApiClient.GetAsync("GetBikeInfo?id=" + id).Result;
+                    return View(response.Content.ReadAsAsync<BikeInfo>().Result);
                 }
             }
             catch (Exception ex)
@@ -50,16 +50,16 @@ namespace CRUDWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(PersonalInfo obj)
+        public IActionResult Create(BikeInfo obj)
         {
             if (obj.Id == null)
             {
-                response = GlobalVariables.WebApiClient.PostAsJsonAsync("AddPersonalInfo", obj).Result;
+                response = GlobalVariables.WebApiClient.PostAsJsonAsync("AddBikeInfo", obj).Result;
                 TempData["SuccessMessage"] = "Record Saved Successfully!";
             }
             else
             {
-                response = GlobalVariables.WebApiClient.PutAsJsonAsync("EditPersonalInfo", obj).Result;
+                response = GlobalVariables.WebApiClient.PutAsJsonAsync("EditBikeInfo", obj).Result;
                 TempData["SuccessMessage"] = "Record Updated Successfully!";
             }
             return RedirectToAction("Index");
@@ -67,7 +67,7 @@ namespace CRUDWeb.Controllers
 
         public IActionResult Delete(int id)
         {
-            response = GlobalVariables.WebApiClient.DeleteAsync("DeletePersonalInfo?id="+id).Result;
+            response = GlobalVariables.WebApiClient.DeleteAsync("DeleteBikeInfo?id="+id).Result;
             TempData["SuccessMessage"] = "Record Deleted Successfully!";
 
             return RedirectToAction("Index");

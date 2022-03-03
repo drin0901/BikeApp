@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Web.Models.BikeInfo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style type="text/css">
+    .td {
+        text-align:center;
+    }
+</style>
+
+<p>
+    <a asp-action="Create" class="btn btn-dark" style="background-color: green">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Total Time Spent</th>
+            <th>Date Modified</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
+            <td>@Html.DisplayFor(modelItem => item.CheckInTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.CheckOutTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.TotalTimeSpent)</td>
+            <td>@Html.DisplayFor(modelItem => item.DateModified)</td>
+            <td>
+                <a href="@Url.Action("Create","BikeInfo", new { id = item.Id })" class="btn btn-dark" style="background-color: Highlight"> Edit</a>
+                <a href="#" id="@Html.DisplayFor(modelItem => item.Id)" class="btn btn-dark btnDelete" data-id="@Html.DisplayFor(modelItem => item.Id)" style="background-color: red"> Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+
+<script>
+    $(document).ready(function () {
+
+        $('.btnDelete').click(function () {
+            var itemId = $(this).data("id");
+
+            alertify.confirm('Delete Record', 'Are you sure you want to Delete this Record?', function () {
+                window.location.href = '@Url.Action("Delete", "BikeInfo")/' + itemId;
+            },null)
+        });
+
+
+    });
+</script>
+
+}

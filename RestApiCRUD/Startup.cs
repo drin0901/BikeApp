@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using RestApiCRUD.Models;
-using RestApiCRUD.PersonalInfoData;
+using WebAPI.Models;
+using WebAPI.BikeInfoData;
 
-namespace RestApiCRUD
+namespace WebAPI
 {
     public class Startup
     {
@@ -25,15 +25,15 @@ namespace RestApiCRUD
 
             services.AddControllers();
 
-            services.AddDbContextPool<DBContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("PersonalInfoContextConnectionString")));
+            services.AddDbContextPool<BikeInfoContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("BikeInfoContextConnectionString")));
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestApiCRUD", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
             });
 
-            services.AddScoped<IPersonalInfoData, SqlPersonalInfoData>();
+            services.AddScoped<IBikeInfoData, SqlBikeInfoData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +43,7 @@ namespace RestApiCRUD
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestApiCRUD v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
 
             app.UseHttpsRedirection();

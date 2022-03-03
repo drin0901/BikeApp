@@ -1,4 +1,4 @@
-﻿using CRUDWeb.Models;
+﻿using Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CRUDWeb.Controllers
+namespace Web.Controllers
 {
     public class RegisterController : Controller
     {

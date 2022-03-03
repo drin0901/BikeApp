@@ -1,4 +1,4 @@
-﻿using CRUDWeb.Models;
+﻿using Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CRUDWeb.Controllers
+namespace Web.Controllers
 {
     public class LoginController : Controller
     {
@@ -33,7 +33,8 @@ namespace CRUDWeb.Controllers
                 var result = signInManager.PasswordSignInAsync(Model.Email, Model.Password, Model.RememberMe, false);
                 if (result.Result.Succeeded)
                 {
-                    return RedirectToAction("Index","PersonalInfo");
+                    TempData["SuccessMessage"] = "Login Successfully! Welcome to Bike Rental Management";
+                    return RedirectToAction("Index","BikeInfo");
                 }
                 else
                 {

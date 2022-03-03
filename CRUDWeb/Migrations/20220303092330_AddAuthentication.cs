@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CRUDWeb.Migrations
+namespace Web.Migrations
 {
     public partial class AddAuthentication : Migration
     {

@@ -9,10 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using CRUDWeb.Models;
+using Web.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace CRUDWeb
+namespace Web
 {
     public class Startup
     {

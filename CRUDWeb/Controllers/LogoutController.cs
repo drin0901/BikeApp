@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CRUDWeb.Controllers
+namespace Web.Controllers
 {
     public class LogoutController : Controller
     {
@@ -24,6 +24,7 @@ namespace CRUDWeb.Controllers
         public IActionResult Logout()
         {
             signInManager.SignOutAsync();
+            TempData["SuccessMessage"] = "Logged Out Successfully! Thank you for using our App";
             return RedirectToAction("Index","Login");
         }
     }
