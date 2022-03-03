@@ -57,25 +57,24 @@
     <script>
         $(document).ready(function () {
 
-            //$('#inputCheckIn').change(function () {
-            //    CalculateTimeSpent()
-            //});
+            $('#inputCheckIn').change(function () {
+                CalculateTimeSpent()
+            });
 
-            //$('#inputCheckOut').change(function () {
-            //    CalculateTimeSpent()
-            //});
+            $('#inputCheckOut').change(function () {
+                CalculateTimeSpent()
+            });
 
-            //function CalculateTimeSpent(){
+            function CalculateTimeSpent() {
+                var checkInDate = Date.parse($('#inputCheckIn').val());
+                var checkOutDate = Date.parse($('#inputCheckOut').val());
 
-            //    var checkInDate = Date.parse($('#inputCheckIn').val());
-            //    var checkOutDate = Date.parse($('#inputCheckOut').val());
+                var result = checkOutDate - checkInDate;
 
-            //    var result = checkOutDate - checkInDate;
+                const hours = Math.round(((result / 1000) / 60) / 60);
 
-            //    $('#inputTimeSpent').val(result);
-                
-            //};
-
+                $('#inputTimeSpent').val(hours);
+            };
 
         });
     </script>
