@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
@@ -12,62 +14,54 @@ namespace Web.Controllers
     {
         
         private HttpResponseMessage response;
+
         public BikeInfoController()
         {
             response = new HttpResponseMessage();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             IEnumerable<BikeInfo> BikeInfoList;
-            response = GlobalVariables.WebApiClient.GetAsync("GetBikeInfoList").Result;
-            BikeInfoList = response.Content.ReadAsAsync<IEnumerable<BikeInfo>>().Result;
+            response = await GlobalVariables.WebApiClient.GetAsync("GetBikeInfoList");
+            BikeInfoList = await response.Content.ReadAsAsync<IEnumerable<BikeInfo>>();
 
             return View(BikeInfoList);
         }
 
         [HttpGet]
-        public IActionResult Create(int id = 0)
+        public async Task<IActionResult> Create(int id = 0)
         {
-            try
+            if (id == 0)
             {
-                if (id == 0)
-                {
-                    return View(new BikeInfo());
-                }
-                else
-                {
-                    response = GlobalVariables.WebApiClient.GetAsync("GetBikeInfo?id=" + id).Result;
-                    return View(response.Content.ReadAsAsync<BikeInfo>().Result);
-                }
+                return View(new BikeInfo());
             }
-            catch (Exception ex)
+            else
             {
-
+                response = await GlobalVariables.WebApiClient.GetAsync("GetBikeInfo?id=" + id);
+                return View( await response.Content.ReadAsAsync<BikeInfo>());
             }
-
-            return View();
         }
 
         [HttpPost]
-        public IActionResult Create(BikeInfo obj)
+        public async Task<IActionResult> Create(BikeInfo obj)
         {
             if (obj.Id == null)
             {
-                response = GlobalVariables.WebApiClient.PostAsJsonAsync("AddBikeInfo", obj).Result;
+                response = await GlobalVariables.WebApiClient.PostAsJsonAsync("AddBikeInfo", obj);
                 TempData["SuccessMessage"] = "Record Saved Successfully!";
             }
             else
             {
-                response = GlobalVariables.WebApiClient.PutAsJsonAsync("EditBikeInfo", obj).Result;
+                response = await GlobalVariables.WebApiClient.PutAsJsonAsync("EditBikeInfo", obj);
                 TempData["SuccessMessage"] = "Record Updated Successfully!";
             }
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            response = GlobalVariables.WebApiClient.DeleteAsync("DeleteBikeInfo?id="+id).Result;
+            response = await GlobalVariables.WebApiClient.DeleteAsync("DeleteBikeInfo?id="+id);
             TempData["SuccessMessage"] = "Record Deleted Successfully!";
 
             return RedirectToAction("Index");

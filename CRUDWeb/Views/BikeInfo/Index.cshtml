@@ -1,17 +1,28 @@
 ﻿@model IEnumerable<Web.Models.BikeInfo>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> userManager
+
+@{ 
+    var user = await userManager.FindByEmailAsync(User.Identity.Name);
+    var userRole = userManager.GetRolesAsync(user).Result.SingleOrDefault();
+}
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <style type="text/css">
-    .td {
-        text-align:center;
+    
+    th, td {
+        text-align: center;
     }
+
+
 </style>
 
 <p>
-    <a asp-action="Create" class="btn btn-dark" style="background-color: green">Create New</a>
+    <a asp-action="Create" class="btn btn-primary justify-content-end" style="background-color: green">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -27,24 +38,28 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
-            <td>@Html.DisplayFor(modelItem => item.CheckInTime)</td>
-            <td>@Html.DisplayFor(modelItem => item.CheckOutTime)</td>
-            <td>@Html.DisplayFor(modelItem => item.TotalTimeSpent)</td>
-            <td>@Html.DisplayFor(modelItem => item.DateModified)</td>
-            <td>
-                <a href="@Url.Action("Create","BikeInfo", new { id = item.Id })" class="btn btn-dark" style="background-color: Highlight"> Edit</a>
-                <a href="#" id="@Html.DisplayFor(modelItem => item.Id)" class="btn btn-dark btnDelete" data-id="@Html.DisplayFor(modelItem => item.Id)" style="background-color: red"> Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
+                <td>@Html.DisplayFor(modelItem => item.CheckInTime)</td>
+                <td>@Html.DisplayFor(modelItem => item.CheckOutTime)</td>
+                <td>@Html.DisplayFor(modelItem => item.TotalTimeSpent)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateModified)</td>
+                <td>
+                    <a href="@Url.Action("Create","BikeInfo", new { id = item.Id })" class="btn btn-dark" style="background-color: Highlight"> Edit</a>
+
+                    @if (userRole == "Admin")
+                    {
+                        <a href="#" id="@Html.DisplayFor(modelItem => item.Id)" class="btn btn-dark btnDelete" data-id="@Html.DisplayFor(modelItem => item.Id)" style="background-color: red"> Delete</a>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
 @section scripts {
 
-<script>
+    <script>
     $(document).ready(function () {
 
         $('.btnDelete').click(function () {
@@ -55,8 +70,7 @@
             },null)
         });
 
-
     });
-</script>
+    </script>
 
 }

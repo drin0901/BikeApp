@@ -11,13 +11,15 @@ namespace Web.Controllers
     public class LoginController : Controller
     {
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<IdentityUser> userManager;
 
         [BindProperty]
         public Login Model { get; set; }
 
-        public LoginController(SignInManager<IdentityUser> signInManager)
+        public LoginController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
             this.signInManager = signInManager;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -26,12 +28,12 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
             if (ModelState.IsValid)
             {
-                var result = signInManager.PasswordSignInAsync(Model.Email, Model.Password, Model.RememberMe, false);
-                if (result.Result.Succeeded)
+                var result = await signInManager.PasswordSignInAsync(Model.Email, Model.Password, Model.RememberMe, false);
+                if (result.Succeeded)
                 {
                     TempData["SuccessMessage"] = "Login Successfully! Welcome to Bike Rental Management";
                     return RedirectToAction("Index","BikeInfo");

@@ -21,9 +21,9 @@ namespace Web.Controllers
             return View();
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
             TempData["SuccessMessage"] = "Logged Out Successfully! Thank you for using our App";
             return RedirectToAction("Index","Login");
         }

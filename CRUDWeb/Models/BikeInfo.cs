@@ -12,13 +12,13 @@ namespace Web.Models
         [Required]
         public string CustomerName { get; set; }
         [Required]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:ss}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm:ss}")]
         public DateTime? CheckOutTime { get; set; }
         [Required]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:ss}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm:ss}")]
         public DateTime? CheckInTime { get; set; }
         public int? TotalTimeSpent { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:ss}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm:ss}")]
         public DateTime? DateModified { get; set; } = DateTime.Now;
         public bool IsActive { get; set; } = true;
     }
