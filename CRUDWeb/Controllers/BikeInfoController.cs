@@ -1,10 +1,8 @@
 ﻿using Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
 namespace Web.Controllers
